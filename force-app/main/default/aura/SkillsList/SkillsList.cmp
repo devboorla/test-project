@@ -6,6 +6,7 @@
     <form>
         <lightning:layout horizontalAlign="left" verticalAlign="center">
             <lightning:layoutItem padding="around-small">
+                This is a test of Git Integration
                 <lightning:select aura:id="pickId" name="select" label="Skill List"  value="{!v.selSkill}" onchange="{!c.setName}">
                     <option value="">Select a Skill</option>
                     <aura:iteration items="{!v.skillsList}" var="sk">
