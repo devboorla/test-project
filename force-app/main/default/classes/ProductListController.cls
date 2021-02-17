@@ -7,6 +7,6 @@ public class ProductListController {
     
      @AuraEnabled
     public static List<Skill> getSkillsList(){
-        return [SELECT Id, DeveloperName from Skill ORDER BY DeveloperName];
+        return [SELECT Id, DeveloperName from Skill ORDER BY DeveloperName]; 
     }
 }
