@@ -5,6 +5,7 @@ public class ProductListController {
         return [SELECT Id, Name from Product2 ORDER BY Name];
     }
     // This is a change in feature01
+    //how do I get the latest from Master?
      @AuraEnabled
     public static List<Skill> getSkillsList(){
         return [SELECT Id, DeveloperName from Skill ORDER BY DeveloperName]; 
