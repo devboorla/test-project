@@ -5,7 +5,7 @@ public class ProductListController {
         return [SELECT Id, Name from Product2 ORDER BY Name];
     }
 
-    // This is a change in feature02. Lets see how to handle this. Change 02
+    // This is a change in feature02. Lets see how to handle this. Change 03.
 
     // This is a change in feature01
 
