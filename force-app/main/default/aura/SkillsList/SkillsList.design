@@ -1,4 +1,0 @@
-<design:component>
-	<design:attribute name="selSkill" label="Selected Skill" />
-    <design:attribute name="selSkillName" label="Selected Skill Name" />
-</design:component>

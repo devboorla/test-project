@@ -1,3 +1,0 @@
-<design:component>
-	<design:attribute name="selProd" label="Selected Product" />
-</design:component>
