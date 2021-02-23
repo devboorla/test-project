@@ -14,9 +14,10 @@ public class ProductListController {
     //how do I get the latest from Master?
 
     //Test for Pull Request. I commited after I created a pull request
-
+/*
      @AuraEnabled
     public static List<Skill> getSkillsList(){
         return [SELECT Id, DeveloperName from Skill ORDER BY DeveloperName]; 
     }
+    */
 }
