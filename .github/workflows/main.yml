@@ -45,5 +45,5 @@ jobs:
           ./sfdx-cli/install
       - name: Auth with the DevHub
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
-      - name: Validate with DevHub/Target Org
+      - name: Validate with DevHub Target Org
       run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u ${{ secrets.DEVHUB_USERNAME}}'
