@@ -46,4 +46,4 @@ jobs:
         #run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d' //check the command params
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a testSandbox'
       - name: Validate with DevHub-Target Org
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u nboorla@playful-moose-8o22br.com'
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u dboorla@wm.com.pocdev2'
