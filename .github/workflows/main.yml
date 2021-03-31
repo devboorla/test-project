@@ -35,7 +35,8 @@ jobs:
           echo Add other actions to build,
           echo ${{secrets.DEVHUB_USERNAME}}
           echo test, and deploy your project.
-          
+      - name: Write the username into a file
+        run: 'echo ${{ secrets.DEVHUB_USERNAME}} > uname.txt'    
       - name: Write the token into a file
         run: 'echo ${{ secrets.DEVHUB_TOKEN}} > token.txt'
       - name: Install Salesforce CLI
@@ -47,4 +48,4 @@ jobs:
       - name: Auth with the DevHub
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
       - name: Validate with DevHub-Target Org
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u {{secrets.DEVHUB_USERNAME}}'
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u uname.txt'
