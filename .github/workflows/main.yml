@@ -33,7 +33,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo ${secrets.DEVHUB_USERNAME}
+          echo ${{secrets.DEVHUB_USERNAME}}
           echo test, and deploy your project.
           
       - name: Write the token into a file
