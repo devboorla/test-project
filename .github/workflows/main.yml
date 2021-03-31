@@ -33,6 +33,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
+          echo ${secrets.DEVHUB_USERNAME}
           echo test, and deploy your project.
           
       - name: Write the token into a file
@@ -46,4 +47,4 @@ jobs:
       - name: Auth with the DevHub
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
       - name: Validate with DevHub-Target Org
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u nboorla@playful-moose-8o22br.com'
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u {secrets.DEVHUB_USERNAME}'
