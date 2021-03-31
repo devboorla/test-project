@@ -49,4 +49,4 @@ jobs:
       - name: Validate with DevHub-Target Org
         env:
           username: ${{secrets.DEVHUB_USERNAME}}  
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u username'
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u "$username"'
