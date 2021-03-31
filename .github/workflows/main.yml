@@ -42,8 +42,11 @@ jobs:
           mkdir sfdx-cli
           tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
           ./sfdx-cli/install
-      - name: Auth with the DevHub
+      #- name: Auth with the DevHub
         #run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d' //check the command params
+      - name: Auth with the Sandbox
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a testSandbox'
       - name: Validate with DevHub-Target Org
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u dboorla@wm.com.pocdev2'
+        with:
+          username: ${{secrets.DEVHUB_USERNAME}}  
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u username'
