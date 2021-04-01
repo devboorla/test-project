@@ -35,7 +35,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.  
       - name: Write the token into a file
-        run: 'echo ${{ secrets.DEVHUB_TOKEN}} > token.txt'
+        run: 'echo ${{ secrets.SBX_TOKEN}} > token.txt'
       - name: Install Salesforce CLI
         run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
@@ -48,5 +48,5 @@ jobs:
         run: 'sfdx force:auth:sfdxurl:store -f token.txt -a testSandbox'
       - name: Validate with DevHub-Target Org
         env:
-          username: ${{secrets.DEVHUB_USERNAME}}  
-        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u "$username"'
+          sbx_username: ${{secrets.SBX_USERNAME}}  
+        run: 'sfdx force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u "$sbx_username"'
