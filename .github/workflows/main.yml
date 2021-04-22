@@ -37,9 +37,10 @@ jobs:
       
       - name: Authenticate DevHub
         run: |
-          echo "${{SBX_JWT_SECRET_KEY}}" > server.key
+          echo "${SBX_JWT_SECRET_KEY}" > server.key
           node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SBX_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SBX_USERNAME}} 
-        
+        env:
+          SBX_JWT_SECRET_KEY: ${{ secrets.SBX_JWT_SECRET_KEY }}
 
       - name: Validate with Target Org
         env:
