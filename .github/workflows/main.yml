@@ -3,45 +3,46 @@
 name: TestWF
 
 # Controls when the action will run. 
-on:
+on: pull_request
   # Triggers the workflow on push or pull request events but only for the master branch
- # push:
- #   branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  # push:
+  #   branches: [ master ]
+  # pull_request:
+  # branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   #workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called "build" 
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          
-      - name: Write the token into a file
-        run: 'echo ${{ secrets.DEVHUB_TOKEN}} > token.txt'
       - name: Install Salesforce CLI
         run: |
-          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-          mkdir sfdx-cli
-          tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
-          ./sfdx-cli/install
-      - name: Auth with the DevHub
-        run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
+          npm install sfdx-cli
+          node_modules/sfdx-cli/bin/run --version
+          node_modules/sfdx-cli/bin/run plugins --core
+      
+      - name: Authenticate DevHub
+        run: |
+          echo "${SBX_JWT_SECRET_KEY}" > server.key
+          node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SBX_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SBX_USERNAME}} 
+        env:
+          SBX_JWT_SECRET_KEY: ${{ secrets.SBX_JWT_SECRET_KEY }}
+
+      - name: Validate with Target Org
+        env:
+          sbx_username: ${{secrets.SBX_USERNAME}}  
+        run: node_modules/sfdx-cli/bin/run force:source:deploy --checkonly --wait 2 -x manifest/package.xml  -u "$sbx_username"
